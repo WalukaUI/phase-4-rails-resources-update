@@ -22,10 +22,25 @@ class BirdsController < ApplicationController
     end
   end
 
+  #update
+
+  def update
+     new_bird=Bird.find_by(id: params[:id])
+     new_bird.update(bird_params)
+     render json: new_bird
+  end
+#custom route
+
+   def increment_likes
+    new_bird=Bird.find_by(id: params[:id])
+    new_bird.update(likes: new_bird.likes + 1)
+    render json: new_bird
+   end
+
   private
 
   def bird_params
-    params.permit(:name, :species)
+    params.permit(:name, :species, :likes)
   end
 
 end
